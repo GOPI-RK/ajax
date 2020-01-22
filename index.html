@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax</title>
+    <style>
+        .div,.im
+        {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: center;
+         
+        }
+        img
+        {
+        transition: all 2s;
+        }
+        img:hover
+        {
+        transform: rotateY(360deg);
+        }
+
+        .container
+        {
+         width: 300px;
+         border: 2px solid black;
+         border-radius: 7px;
+         height: 320px;
+         padding: 20px;
+         margin: 50px;
+         display: inline-block;
+        
+        }
+        .id{
+         font-size: 18px;
+         font-weight: 600;
+         color: blueviolet;
+         font-family: sans-serif;
+         line-height: 1.5;
+         word-spacing: 1px;
+        }
+        .title
+        {
+         font-size: 18px;
+         font-family: cursive;
+         font-weight: 600;
+         color: darkblue;
+         word-spacing: 2px;
+        height: 60px;
+        }
+        .image
+        {
+         width: 160px;
+         margin: 20px auto;
+        }
+        .url
+        {
+         font-size: 19px;
+         font-weight: 500;
+         margin: 30px 0px;
+        }
+        button
+        {
+         color: white;
+         background-color: black;
+         border: 1px solid black;
+         border-radius: 100%;
+         padding: 12px;
+         font-size: 18px;
+         font-family: cursive;
+        }
+        button:hover
+        {
+         color: black;
+         background-color:white;
+         border: 1px solid black;
+        }
+        a{
+           text-decoration: none; 
+           color: brown;
+        }
+        a:visited
+        {
+         color:blue;
+        }
+        .style{
+            display: none;
+        }
+        .center,.center1
+        {
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        }
+        #para
+        {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+         
+        }
+    </style>
+</head>
+<body>
+    <div class="im">
+        <img src="images/icon.png" alt="logo">
+    </div>
+   <p id="div"></p> 
+   <div class="d">
+   <div class="center"></dic><button  id ="btn" onclick="ajax()">Click Here !!!</button></div>
+   <p id="para"></p>
+   </div>
+</body>
+<script>
+function ajax()
+{
+var data=new XMLHttpRequest();
+data.open("Get","https://jsonplaceholder.typicode.com/photos",true);
+data.send();
+data.onreadystatechange=function()
+{
+if(this.readyState == 4 && this.status == 200)
+{
+var respdata=JSON.parse(this.responseText);
+for(var i=0; i < 100; i++)
+    {
+    document.getElementById("div").innerHTML+="<div class='container'><div class='id'>"+ respdata[i].id +"</div><div class='title'>"+ respdata[i].title+"</div><div class='image'><img src='"+ respdata[i].thumbnailUrl +"' alt='img' ></div><div class='url'>"+"<a href='"+ respdata[i].url +"'>"+ respdata[i].url+ "</a></div></div>";
+    }
+     document.getElementById("para").innerHTML="<button onclick='more()'>More</button>";
+     document.getElementById("btn").classList.add("style");
+}
+}
+}
+function more()
+{
+var data=new XMLHttpRequest();
+data.open("Get","https://jsonplaceholder.typicode.com/photos",true);
+data.send();
+data.onreadystatechange=function()
+{
+if(this.readyState == 4 && this.status == 200)
+{
+var respdata=JSON.parse(this.responseText);
+for(var i=100; i < 200; i++)
+    {
+    document.getElementById("div").innerHTML+="<div class='container'><div class='id'>"+ respdata[i].id +"</div><div class='title'>"+ respdata[i].title+"</div><div class='image'><img src='"+ respdata[i].thumbnailUrl +"' alt='img' ></div><div class='url'>"+"<a href='"+ respdata[i].url +"'>"+ respdata[i].url+ "</a></div></div>";
+    }
+     document.getElementById("para").innerHTML=" <button id='btn1' onclick='more()'>More</button>";
+     document.getElementById("btn1").classList.add("style");
+    
+}
+}
+}
+
+
+   
+</script>
+</html>
